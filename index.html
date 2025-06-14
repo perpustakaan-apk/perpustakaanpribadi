@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Perpustakaan Pribadi</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: linear-gradient(135deg, #00C9FF, #92FE9D);
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    .logo {
+      margin-top: 30px;
+    }
+    .logo img {
+      width: 300px;
+      height: auto;
+    }
+    h1 {
+      color: #2980b9;
+      margin: 20px 0 10px;
+    }
+    p.subtitle {
+      color: #555;
+      margin: 0 0 30px;
+    }
+    .search-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #dceef8;
+      border-radius: 30px;
+      padding: 10px;
+      width: 80%;
+      max-width: 700px;
+      margin: auto;
+      margin-bottom: 20px;
+    }
+    .search-container input {
+      flex: 1;
+      border: none;
+      outline: none;
+      background: transparent;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+    .search-container button {
+      background: #f06292;
+      border: none;
+      padding: 10px 20px;
+      color: white;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .languages {
+      margin-top: 10px;
+    }
+    .languages span {
+      color: #555;
+    }
+    .languages a {
+      margin: 0 8px;
+      color: #2980b9;
+      text-decoration: none;
+    }
+    .languages a:hover {
+      text-decoration: underline;
+    }
+    .menu-button {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 32px;
+      height: 32px;
+      background: none;
+      border: 2px solid #2980b9;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1001;
+    }
+    .menu-button span {
+      font-size: 20px;
+      color: #2980b9;
+    }
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: -300px;
+      width: 280px;
+      height: 100vh;
+      background: #4285f4;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 20px;
+      transition: right 0.3s ease;
+      z-index: 1000;
+    }
+    .sidebar.active {
+      right: 0;
+    }
+    .sidebar h2 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 20px;
+      font-weight: normal;
+      letter-spacing: 1px;
+    }
+    .sidebar .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    .sidebar hr {
+      width: 80%;
+      border: 0.5px solid white;
+      margin: 10px 0;
+    }
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      margin: 10px 0;
+      font-size: 14px;
+      letter-spacing: 1px;
+    }
+    .sidebar .language-select {
+      margin-top: auto;
+      width: 100%;
+      text-align: center;
+      font-size: 12px;
+    }
+    .sidebar select {
+      padding: 6px 10px;
+      border-radius: 4px;
+      border: none;
+      margin-top: 5px;
+    }
+    .results {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      width: 220px;
+      padding: 20px;
+      text-align: center;
+    }
+    .card img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      margin-bottom: 10px;
+    }
+    .card h3 {
+      margin: 0;
+    }
+    .card p {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+    .card .btn {
+      margin: 5px 4px 0;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .edit-btn {
+      background: #fbc02d;
+      color: black;
+    }
+    .delete-btn {
+      background: #f44336;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="menu-button" onclick="toggleSidebar()">
+    <span>&#9776;</span>
+  </div>
+
+  <div class="sidebar" id="sidebar">
+    <div class="close-btn" onclick="toggleSidebar()">&times;</div>
+    <h2>MENU</h2>
+    <hr>
+    <a href="#">BERANDA DEPAN</a>
+    <a href="#">WARTA PERPUSTAKAAN</a>
+    <a href="#">INFO PERPUSTAKAAN</a>
+    <a href="#">LOKASI PERPUSTAKAAN</a>
+    <a href="#">AREA ANGGOTA</a>
+    <a href="#">PUSTAKAWAN</a>
+    <a href="#">BANTUAN PENCARIAN</a>
+    <a href="login.html">MASUK PUSTAKAWAN</a>
+    <hr>
+    <div class="language-select">
+      <p>PILIH BAHASA</p>
+      <select>
+        <option>Indonesia</option>
+        <option>English</option>
+        <option>Arabic</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="logo">
+    <img src="logo.png" alt="Logo Perpustakaan">
+  </div>
+  <h1>Perpustakaan Pribadi</h1>
+  <p class="subtitle">masukkan satu atau lebih kata kunci dari judul, pengarang, atau subyek</p>
+
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Cari koleksi buku...">
+    <button onclick="cariBuku()">PENCARIAN</button>
+  </div>
+
+  <div class="languages">
+    <span>Pilih Bahasa :</span>
+    <a href="#">English</a>
+    <a href="#">Indonesia</a>
+    <a href="#">Arabic</a>
+  </div>
+
+  <div class="results" id="hasilKartu"></div>
+
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById("sidebar");
+      sidebar.classList.toggle("active");
+    }
+
+    document.addEventListener("click", function(event) {
+      const sidebar = document.getElementById("sidebar");
+      const menuBtn = document.querySelector(".menu-button");
+      if (
+        sidebar.classList.contains("active") &&
+        !sidebar.contains(event.target) &&
+        !menuBtn.contains(event.target)
+      ) {
+        sidebar.classList.remove("active");
+      }
+    });
+
+    function cariBuku() {
+  const keyword = document.getElementById("searchInput").value.toLowerCase();
+  localStorage.setItem("kataKunci", keyword);
+  window.location.href = "lihat-koleksi.html";
+}
+
+    function tampilkanHasil(keyword) {
+      const books = JSON.parse(localStorage.getItem("books")) || [];
+      const hasil = books.filter(b =>
+        b.judul.toLowerCase().includes(keyword) ||
+        b.penulis.toLowerCase().includes(keyword) ||
+        b.kategori.toLowerCase().includes(keyword)
+      );
+
+      const container = document.getElementById("hasilKartu");
+      container.innerHTML = hasil.length === 0 ? "<p>Tidak ada hasil ditemukan.</p>" : "";
+
+      hasil.forEach((buku, i) => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <img src="${buku.gambar || 'https://via.placeholder.com/80'}" alt="Gambar Buku">
+          <h3>${buku.judul}</h3>
+          <p><strong>Penulis:</strong> ${buku.penulis}</p>
+          <p><strong>Kategori:</strong> ${buku.kategori}</p>
+          <p><strong>Tahun:</strong> ${buku.tahun}</p>
+          <button class="btn edit-btn">✏️ Edit</button>
+          <button class="btn delete-btn">🗑️ Hapus</button>
+        `;
+        container.appendChild(card);
+      });
+    }
+  </script>
+</body>
+</html>
